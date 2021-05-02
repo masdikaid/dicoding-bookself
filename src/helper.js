@@ -1,14 +1,31 @@
 const books = require('./books');
 
 function booksFilter(name, reading, finished) {
-    const mapedBooks = books.map((book) => (
+    let mapedBooks = books;
+
+    if (name) {
+        mapedBooks = mapedBooks.filter((book) => book.name
+            .toLowerCase()
+            .includes(name.toLowerCase()));
+    }
+
+    if (reading !== null) {
+        console.log(Boolean(Number(reading)));
+        mapedBooks = mapedBooks.filter((book) => book.reading === Boolean(Number(reading)));
+    }
+
+    if (finished !== null) {
+        console.log(Boolean(Number(finished)));
+        mapedBooks = mapedBooks.filter((book) => book.finished === Boolean(Number(finished)));
+    }
+
+    return mapedBooks.map((book) => (
         {
             id: book.id,
             name: book.name,
             publisher: book.publisher,
         }
     ));
-    return mapedBooks;
 }
 
 function getSingleBook(id) {
